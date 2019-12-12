@@ -52,4 +52,26 @@ class Saxon extends Soldier {
 }
 
 // War
-class War {}
+class War {
+    constructor(){
+    this.vikingArmy = [];
+    this.saxonArmy = [];
+    }
+    addViking(viking){
+    this.vikingArmy.push(viking);
+    }
+    addSaxon(saxon){
+        this.saxonArmy.push(saxon);
+    }
+    vikingAttack(){
+        let vikingIndex = Math.floor(Math.random() * this.vikingArmy.length);
+        let randomViking = this.vikingArmy[vikingIndex];
+        this.saxonArmy = randomViking.attack;
+       
+    }
+      saxonAttack(){
+        let saxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
+        let randomSaxon = this.saxonArmy[saxonIndex];
+        this.vikingArmy = randomSaxon.attack;
+    }
+}
