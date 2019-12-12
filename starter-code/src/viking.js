@@ -39,6 +39,9 @@ class Viking extends Soldier {
 
 // Saxon
 class Saxon extends Soldier {
+    constructor(health, strength){
+        super(health, strength);
+    }
     receiveDamage(damage){
         this.health = this.health - damage;
 
@@ -66,12 +69,43 @@ class War {
     vikingAttack(){
         let vikingIndex = Math.floor(Math.random() * this.vikingArmy.length);
         let randomViking = this.vikingArmy[vikingIndex];
-        this.saxonArmy = randomViking.attack;
-       
-    }
-      saxonAttack(){
+        
         let saxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
         let randomSaxon = this.saxonArmy[saxonIndex];
-        this.vikingArmy = randomSaxon.attack;
+        
+        let message = randomSaxon.receiveDamage(randomViking.attack());
+
+        if(randomSaxon.health <= 0){
+            this.saxonArmy.splice(saxonIndex, 1);
+        }
+        return message;
     }
-}
+    saxonAttack(){
+        
+        let vikingIndex = Math.floor(Math.random() * this.vikingArmy.length);
+        let randomViking = this.vikingArmy[vikingIndex];
+        
+        let saxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
+        let randomSaxon = this.saxonArmy[saxonIndex];
+
+        let message = randomViking.receiveDamage(randomSaxon.attack());
+   
+        if(randomViking.health <=0){
+            this.vikingArmy.splice(vikingIndex, 1);
+        }
+        return message;
+    }
+    
+     showStatus(){
+         if(this.saxonArmy.length == 0){
+            return "Vikings have won the war of the century!"
+         }
+         else if (this.vikingArmy.length == 0){
+            return "Saxons have fought for their lives and survive another day..."
+         }
+         else {
+            return "Vikings and Saxons are still in the thick of battle."
+         }
+     }
+    }
+
